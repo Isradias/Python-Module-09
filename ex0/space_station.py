@@ -39,9 +39,9 @@ def hardcoded_main() -> None:
             last_maintenance=datetime.now()
         )
         sirius_system.display()
-    except Exception as e:
-        print("Deu ruim")
-        print(e)
+    except ValidationError as e:
+        for x in e.errors():
+            print(f"{x["loc"][0]}: {x["msg"]}")
 
     print("========================================")
     print("Expected validation error:")
@@ -90,7 +90,7 @@ def main() -> None:
             invalid_stations = load(archive)
         for x in invalid_stations:
             try:
-                station: SpaceStation = SpaceStation(**x)
+                station = SpaceStation(**x)
                 station.display()
             except ValidationError as e:
                 print(f"Error on {x['station_id']}")

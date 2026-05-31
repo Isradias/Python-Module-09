@@ -5,10 +5,10 @@ from json import load
 
 
 class ContactType(Enum):
-    RADIO: int = "radio"
-    VISUAL: int = "visual"
-    PHYSICAL: int = "physical"
-    TELEPATHIC: int = "telepathic"
+    RADIO = "radio"
+    VISUAL = "visual"
+    PHYSICAL = "physical"
+    TELEPATHIC = "telepathic"
 
 
 class AlienContact(BaseModel):
@@ -40,7 +40,7 @@ class AlienContact(BaseModel):
         return self
 
     @model_validator(mode='after')
-    def signal_validator(self) -> None:
+    def signal_validator(self):
         if self.signal_strength > 7.0 and not self.message_received:
             raise ValueError("Strong signals (> 7.0) should " +
                              "include received messages")
